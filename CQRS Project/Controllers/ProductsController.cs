@@ -16,15 +16,64 @@ namespace CQRS_Project.Controllers
         }
 
 
-
+         
 
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts(
+           string? search,
+           string? sortBy,
+           bool descending = false,
+           int page = 1,
+           int pageSize = 10)
         {
-            var products = await _mediator.Send(new GetProductsQuery());
+            if (page < 1)
+            {
+                page = 1;
+            }
 
-            return Ok(products);
+            if (pageSize < 1)
+            {
+                pageSize = 10;
+            }
+
+            if (pageSize > 100)
+            {
+                pageSize = 100;
+            }
+
+            var products = await _mediator.Send(
+                new GetProductsQuery
+                {
+                    Search = search,
+                    SortBy = sortBy,
+                    Descending = descending,
+                    Page = page,
+                    PageSize = pageSize
+                });
+
+
+             return Ok(products);
         }
+
+
+
+
+
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProductById(int id)
+        {
+            var product = await _mediator.Send(
+                new GetProductByIdQuery { Id = id });
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(product);
+        }
+
+
     }
 }
