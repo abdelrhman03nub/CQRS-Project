@@ -1,11 +1,13 @@
 ﻿using CQRS_Project.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using CQRS_Project.Application.Commands;
+using CQRS_Project.Application.DTOs;
 
 namespace CQRS_Project.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/products")]
     public class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -61,6 +63,8 @@ namespace CQRS_Project.Controllers
 
 
 
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(int id)
         {
@@ -73,6 +77,43 @@ namespace CQRS_Project.Controllers
 
             return Ok(product);
         }
+
+
+
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct(CreateProductDto dto)
+        {
+            var command = new CreateProductCommand
+            {
+                Name = dto.Name,
+                Price = dto.Price,
+                Stock = dto.Stock,
+            };
+            var productId = await _mediator.Send(command);
+
+
+            return CreatedAtAction(
+               nameof(GetProductById),
+               new { id = productId },
+               new { id = productId });
+               
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
