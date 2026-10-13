@@ -111,8 +111,51 @@ namespace CQRS_Project.Controllers
 
 
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProduct(
+            int id,
+            UpdateProductDto dto)
+        {
+            var command = new UpdateProductCommand
+            {
+                Id = id,
+                Name = dto.Name,
+                Price = dto.Price,
+                Stock = dto.Stock
+            };
+
+            var result = await _mediator.Send(command);
+
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
 
 
+
+
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var command = new DeleteProductCommand
+            {
+                Id = id
+            };
+
+            var result = await _mediator.Send(command);
+
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
 
 
 
