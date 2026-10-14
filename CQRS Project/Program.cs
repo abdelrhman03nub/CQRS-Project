@@ -1,13 +1,26 @@
 
 using CQRS_Project.Infrastructure.Data;
+using CQRS_Project.Application.Behaviors;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
-
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
+
+// Register Validators
+builder.Services.AddValidatorsFromAssembly(
+    Assembly.GetExecutingAssembly());
+
+// Register Validation Pipeline
+builder.Services.AddTransient(
+    typeof(IPipelineBehavior<,>),
+    typeof(ValidationBehavior<,>));
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
@@ -23,6 +36,28 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var exception = context.Features
+            .Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>()
+            ?.Error;
+
+        if (exception is FluentValidation.ValidationException validationException)
+        {
+            var problemDetails = CQRS_Project.Exceptions.ValidationExceptionHandler
+                .Handle(validationException);
+
+            context.Response.StatusCode = problemDetails.Status ?? 400;
+            context.Response.ContentType = "application/problem+json";
+
+            await context.Response.WriteAsJsonAsync(problemDetails);
+        }
+    });
+});
+
 
 if (app.Environment.IsDevelopment())
 {
