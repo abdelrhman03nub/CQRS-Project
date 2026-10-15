@@ -1,10 +1,8 @@
-﻿
-using CQRS_Project.Application.Commands;
-using CQRS_Project.Infrastructure.Data;
+﻿using CQRS_Project.Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace CQRS_Project.Application.Handlers
+namespace CQRS_Project.Application.Products.Commands.DeleteProduct
 {
     public class DeleteProductCommandHandler
         : IRequestHandler<DeleteProductCommand, bool>

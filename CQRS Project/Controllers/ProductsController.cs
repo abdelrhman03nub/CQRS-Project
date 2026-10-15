@@ -1,8 +1,12 @@
-﻿using CQRS_Project.Application.Queries;
+﻿
+using CQRS_Project.Application.DTOs;
+using CQRS_Project.Application.Products.Commands.CreateProduct;
+using CQRS_Project.Application.Products.Commands.DeleteProduct;
+using CQRS_Project.Application.Products.Commands.UpdateProduct;
+using CQRS_Project.Application.Products.Queries.GetProducts;
+using CQRS_Project.Application.Products.Queries.GetProductById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using CQRS_Project.Application.Commands;
-using CQRS_Project.Application.DTOs;
 
 namespace CQRS_Project.Controllers
 {
@@ -18,16 +22,16 @@ namespace CQRS_Project.Controllers
         }
 
 
-         
+
 
 
         [HttpGet]
         public async Task<IActionResult> GetProducts(
-           string? search,
-           string? sortBy,
-           bool descending = false,
-           int page = 1,
-           int pageSize = 10)
+            string? search,
+            string? sortBy,
+            bool descending = false,
+            int page = 1,
+            int pageSize = 10)
         {
             if (page < 1)
             {
@@ -54,12 +58,8 @@ namespace CQRS_Project.Controllers
                     PageSize = pageSize
                 });
 
-
-             return Ok(products);
+            return Ok(products);
         }
-
-
-
 
 
 
@@ -70,6 +70,7 @@ namespace CQRS_Project.Controllers
         {
             var product = await _mediator.Send(
                 new GetProductByIdQuery { Id = id });
+
             if (product == null)
             {
                 return NotFound();
@@ -77,9 +78,6 @@ namespace CQRS_Project.Controllers
 
             return Ok(product);
         }
-
-
-
 
 
 
@@ -92,20 +90,16 @@ namespace CQRS_Project.Controllers
                 Name = dto.Name,
                 Price = dto.Price,
                 Stock = dto.Stock,
+                CategoryId = dto.CategoryId
             };
+
             var productId = await _mediator.Send(command);
 
-
             return CreatedAtAction(
-               nameof(GetProductById),
-               new { id = productId },
-               new { id = productId });
-               
+                nameof(GetProductById),
+                new { id = productId },
+                new { id = productId });
         }
-
-
-
-
 
 
 
@@ -137,8 +131,6 @@ namespace CQRS_Project.Controllers
 
 
 
-
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
@@ -156,8 +148,5 @@ namespace CQRS_Project.Controllers
 
             return NoContent();
         }
-
-
-
     }
 }

@@ -1,4 +1,4 @@
-﻿using CQRS_Project.Application.Commands;
+﻿using CQRS_Project.Application.Products.Commands.CreateProduct;
 using FluentValidation;
 
 namespace CQRS_Project.Application.Validators

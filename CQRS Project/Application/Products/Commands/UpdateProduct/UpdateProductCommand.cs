@@ -1,7 +1,6 @@
-﻿
-using MediatR;
+﻿using MediatR;
 
-namespace CQRS_Project.Application.Commands
+namespace CQRS_Project.Application.Products.Commands.UpdateProduct
 {
     public class UpdateProductCommand : IRequest<bool>
     {

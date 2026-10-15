@@ -1,7 +1,7 @@
 ﻿using CQRS_Project.Application.DTOs;
 using MediatR;
 
-namespace CQRS_Project.Application.Queries
+namespace CQRS_Project.Application.Products.Queries.GetProducts
 {
     public class GetProductsQuery : IRequest<List<ProductDto>>
     {

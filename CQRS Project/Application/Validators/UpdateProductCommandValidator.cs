@@ -1,5 +1,4 @@
-﻿
-using CQRS_Project.Application.Commands;
+﻿using CQRS_Project.Application.Products.Commands.UpdateProduct;
 using FluentValidation;
 
 namespace CQRS_Project.Application.Validators

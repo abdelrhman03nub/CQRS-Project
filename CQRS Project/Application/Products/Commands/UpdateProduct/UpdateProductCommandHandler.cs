@@ -1,11 +1,9 @@
-﻿
-using CQRS_Project.Application.Commands;
-using CQRS_Project.Domain.Entities;
+﻿using CQRS_Project.Domain.Entities;
 using CQRS_Project.Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace CQRS_Project.Application.Handlers
+namespace CQRS_Project.Application.Products.Commands.UpdateProduct
 {
     public class UpdateProductCommandHandler
         : IRequestHandler<UpdateProductCommand, bool>

@@ -1,7 +1,7 @@
 ﻿
 using MediatR;
 
-namespace CQRS_Project.Application.Commands
+namespace CQRS_Project.Application.Products.Commands.CreateProduct
 {
     public class CreateProductCommand : IRequest<int>
     {
@@ -10,5 +10,7 @@ namespace CQRS_Project.Application.Commands
         public decimal Price { get; set; }
 
         public int Stock { get; set; }
+
+        public int? CategoryId { get; set; }
     }
 }

@@ -1,12 +1,10 @@
-﻿
-using CQRS_Project.Application.Queries;
-using CQRS_Project.Domain.Entities;
+﻿using CQRS_Project.Domain.Entities;
 using CQRS_Project.Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using CQRS_Project.Application.DTOs;
 
-namespace CQRS_Project.Application.Handlers
+namespace CQRS_Project.Application.Products.Queries.GetProductById
 {
     public class GetProductByIdQueryHandler
         : IRequestHandler<GetProductByIdQuery, ProductDto?>

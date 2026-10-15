@@ -1,15 +1,19 @@
 
-using CQRS_Project.Infrastructure.Data;
 using CQRS_Project.Application.Behaviors;
+using CQRS_Project.Application.Categories.Commands.CreateCategory;
+using CQRS_Project.Infrastructure.Data;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+    cfg.RegisterServicesFromAssembly(
+        typeof(CreateCategoryCommandHandler).Assembly));
+
 
 
 // Register Validators
