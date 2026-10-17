@@ -49,16 +49,27 @@ app.UseExceptionHandler(errorApp =>
             .Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>()
             ?.Error;
 
+        context.Response.ContentType = "application/problem+json";
+
         if (exception is FluentValidation.ValidationException validationException)
         {
-            var problemDetails = CQRS_Project.Exceptions.ValidationExceptionHandler
-                .Handle(validationException);
+            var problemDetails =
+                CQRS_Project.Exceptions.ValidationExceptionHandler
+                    .Handle(validationException);
 
-            context.Response.StatusCode = problemDetails.Status ?? 400;
-            context.Response.ContentType = "application/problem+json";
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
 
             await context.Response.WriteAsJsonAsync(problemDetails);
+            return;
         }
+
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+
+        await context.Response.WriteAsJsonAsync(new
+        {
+            title = "An unexpected error occurred.",
+            status = StatusCodes.Status500InternalServerError
+        });
     });
 });
 
