@@ -1,6 +1,7 @@
 ﻿
 using CQRS_Project.Application.Orders.Commands.CreateOrder;
 using CQRS_Project.Application.Orders.Queries.GetOrderById;
+using CQRS_Project.Application.Orders.Queries.GetOrders;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,10 @@ namespace CQRS_Project.Controllers
             _mediator = mediator;
         }
 
+
+
+
+
         [HttpPost]
         public async Task<IActionResult> CreateOrder(
             CreateOrderCommand command)
@@ -28,6 +33,9 @@ namespace CQRS_Project.Controllers
                 new { id = orderId },
                 new { orderId });
         }
+
+
+
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetOrderById(int id)
@@ -45,5 +53,17 @@ namespace CQRS_Project.Controllers
 
             return Ok(order);
         }
+
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetOrders()
+        {
+            var orders = await _mediator.Send(new GetOrdersQuery());
+
+            return Ok(orders);
+        }
+
     }
 }

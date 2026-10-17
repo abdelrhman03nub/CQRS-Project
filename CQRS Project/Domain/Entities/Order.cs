@@ -9,6 +9,10 @@ namespace CQRS_Project.Domain.Entities
 
         public decimal TotalAmount { get; set; }
 
+        public int? UserId { get; set; }
+
+        public User? User { get; set; }
+
         public ICollection<OrderItem> Items { get; set; }
             = new List<OrderItem>();
     }

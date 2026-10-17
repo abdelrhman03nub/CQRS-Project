@@ -18,6 +18,8 @@ namespace CQRS_Project.Infrastructure.Data
 
         public DbSet<OrderItem> OrderItems { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

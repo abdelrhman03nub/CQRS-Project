@@ -54,7 +54,12 @@ namespace CQRS_Project.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -118,6 +123,36 @@ namespace CQRS_Project.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("CQRS_Project.Domain.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("CQRS_Project.Domain.Entities.Order", b =>
+                {
+                    b.HasOne("CQRS_Project.Domain.Entities.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("CQRS_Project.Domain.Entities.OrderItem", b =>
                 {
                     b.HasOne("CQRS_Project.Domain.Entities.Order", "Order")
@@ -154,6 +189,11 @@ namespace CQRS_Project.Migrations
             modelBuilder.Entity("CQRS_Project.Domain.Entities.Order", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("CQRS_Project.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
