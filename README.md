@@ -1,65 +1,37 @@
-# CQRS Project - ASP.NET Core Web API
+# CQRS Web API - ASP.NET Core
 
-A backend Web API project built with ASP.NET Core and .NET 10, demonstrating the CQRS pattern and common backend development practices.
+A RESTful Web API designed and implemented using the **CQRS (Command Query Responsibility Segregation)** pattern with **MediatR** in ASP.NET Core. This architecture effectively decouples read and write operations, enhancing performance, scalability, and code maintainability.
 
-## Technologies Used
+---
 
-- C#
-- ASP.NET Core Web API
-- .NET 10
-- Entity Framework Core
-- SQL Server
-- MediatR
-- FluentValidation
-- JWT Authentication
-- BCrypt Password Hashing
-- Swagger / OpenAPI
-- Git & GitHub
+## 🛠️ Tech Stack & Tools
+- **Framework:** .NET / ASP.NET Core Web API
+- **Language:** C#
+- **Architecture:** CQRS Pattern via MediatR
+- **Database:** SQL Server
+- **ORM:** Entity Framework Core
+- **Validation:** FluentValidation (with MediatR Pipeline Behaviors)
+- **Security:** JWT Authentication, Role-Based Access Control (RBAC), BCrypt Password Hashing
+- **Documentation & Testing:** Swagger / OpenAPI
 
-## Features
+---
 
-- Product management (CRUD operations)
-- Category management
-- User registration and login
-- JWT-based authentication
-- Role-based authorization (Admin and Customer)
-- Password hashing with BCrypt
-- CQRS pattern using Commands and Queries
-- MediatR request handling
-- FluentValidation for request validation
-- Centralized exception handling
-- Entity Framework Core database integration
-- API documentation and testing with Swagger
+## ✨ Key Features
+- **CQRS Architecture:** Complete separation between Commands (Data Modification) and Queries (Data Retrieval).
+- **Domain Functionalities:** Full CRUD operations for Products & Categories and Order processing workflows.
+- **Robust Security:** JWT-based user authentication, role-based authorization, and secure password encryption using BCrypt.
+- **Automated Validation:** Integrated FluentValidation into MediatR pipeline behaviors to validate requests automatically before processing.
+- **Global Exception Handling:** Centralized middleware to handle application exceptions gracefully and return standardized API responses.
 
-## Authentication and Authorization
+---
 
-- Users can register and log in.
-- Passwords are hashed before being stored.
-- JWT tokens are used to authenticate requests.
-- Product endpoints require authentication.
-- Only Admin users can create, update, or delete products.
-- Customer users can access authorized read operations.
+## 🚀 Getting Started
 
-## Database
+### Prerequisites
+- [.NET SDK](https://dotnet.microsoft.com/download)
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
 
-The project uses SQL Server LocalDB during development and Entity Framework Core for database access and migrations.
-
-## Getting Started
-
-1. Clone the repository.
-2. Open `CQRS Project.slnx` in Visual Studio.
-3. Configure the database connection string using User Secrets.
-4. Configure the JWT signing key using User Secrets.
-5. Apply Entity Framework Core migrations.
-6. Run the application.
-7. Open Swagger to explore and test the API endpoints.
-
-## Security Notes
-
-Sensitive configuration values, such as database connection strings and JWT signing keys, should not be committed to source control.
-
-## Author
-
-**Abdelrhman Mohamed**
-
-- GitHub: [abdelrhman03nub](https://github.com/abdelrhman03nub)
+### Installation & Setup
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/abdelrhman03nub/CQRS-Project.git](https://github.com/abdelrhman03nub/CQRS-Project.git)
