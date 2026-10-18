@@ -1,17 +1,12 @@
-﻿using CQRS_Project.Application.Products.Commands.UpdateProduct;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace CQRS_Project.Application.Validators
+namespace CQRS_Project.Application.Products.Commands.CreateProduct
 {
-    public class UpdateProductCommandValidator
-        : AbstractValidator<UpdateProductCommand>
+    public class CreateProductCommandValidator
+        : AbstractValidator<CreateProductCommand>
     {
-        public UpdateProductCommandValidator()
+        public CreateProductCommandValidator()
         {
-            RuleFor(x => x.Id)
-                .GreaterThan(0)
-                .WithMessage("Product ID must be greater than zero.");
-
             RuleFor(x => x.Name)
                 .NotEmpty()
                 .WithMessage("Product name is required.");
