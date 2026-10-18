@@ -33,5 +33,4 @@ A RESTful Web API designed and implemented using the **CQRS (Command Query Respo
 
 ### Installation & Setup
 1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/abdelrhman03nub/CQRS-Project.git](https://github.com/abdelrhman03nub/CQRS-Project.git)
+ git clone https://github.com/abdelrhman03nub/CQRS-Project.git
