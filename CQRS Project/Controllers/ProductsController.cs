@@ -1,4 +1,4 @@
-﻿
+
 using CQRS_Project.Application.DTOs;
 using CQRS_Project.Application.Products.Commands.CreateProduct;
 using CQRS_Project.Application.Products.Commands.DeleteProduct;
@@ -7,9 +7,11 @@ using CQRS_Project.Application.Products.Queries.GetProducts;
 using CQRS_Project.Application.Products.Queries.GetProductById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CQRS_Project.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/products")]
     public class ProductsController : ControllerBase
@@ -20,8 +22,6 @@ namespace CQRS_Project.Controllers
         {
             _mediator = mediator;
         }
-
-
 
 
 
@@ -81,7 +81,7 @@ namespace CQRS_Project.Controllers
 
 
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateProduct(CreateProductDto dto)
         {
@@ -104,7 +104,7 @@ namespace CQRS_Project.Controllers
 
 
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(
             int id,
@@ -130,7 +130,7 @@ namespace CQRS_Project.Controllers
 
 
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
