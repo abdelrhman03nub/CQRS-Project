@@ -1,15 +1,16 @@
 
 using CQRS_Project.Application.Behaviors;
 using CQRS_Project.Application.Categories.Commands.CreateCategory;
+using CQRS_Project.Application.Common.Exceptions;
+using CQRS_Project.Application.Users.Commands.Register;
+using CQRS_Project.Infrastructure.Authentication;
 using CQRS_Project.Infrastructure.Data;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
-using CQRS_Project.Application.Common.Exceptions;
-using CQRS_Project.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,7 +25,7 @@ builder.Services.AddMediatR(cfg =>
 
 // Register Validators
 builder.Services.AddValidatorsFromAssembly(
-    Assembly.GetExecutingAssembly());
+    typeof(RegisterCommandValidator).Assembly);
 
 // Register Validation Pipeline
 builder.Services.AddTransient(
