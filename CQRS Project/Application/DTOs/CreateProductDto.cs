@@ -13,7 +13,7 @@ namespace CQRS_Project.Application.DTOs
         public decimal Price { get; set; }
 
         [Range(0, 1000000)]
-        public int Stock { get; set; }
+        public int Stock { get; set; }    
 
         public int? CategoryId { get; set; }
     }
