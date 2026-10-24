@@ -10,22 +10,26 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IJwtService, JwtService>();
 
+
+// MediatR
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(
         typeof(CreateCategoryCommandHandler).Assembly));
 
 
 
+
 // Register Validators
 builder.Services.AddValidatorsFromAssembly(
     typeof(RegisterCommandValidator).Assembly);
+
+
 
 // Register Validation Pipeline
 builder.Services.AddTransient(
@@ -158,7 +162,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection();  
 
 app.UseAuthentication();
 app.UseAuthorization();
